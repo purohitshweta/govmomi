@@ -42,6 +42,11 @@ func (cmd *shrink) Usage() string {
 func (cmd *shrink) Description() string {
 	return `Shrink VMDK on DS.
 
+Only blocks that have been zeroed, either from within the guest OS (e.g. via
+sdelete or zerofree) or via ShrinkVirtualDisk's own wipe step, can be
+reclaimed. If the unused space in the guest has not been zeroed first, this
+command will report success without reducing the VMDK's file size.
+
 Examples:
   govc datastore.disk.shrink disks/disk1.vmdk`
 }
